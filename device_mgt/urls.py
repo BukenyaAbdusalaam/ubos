@@ -1,10 +1,10 @@
 from .views import home
 from django.urls import path
 
-from .views import manage_gadgets, issue_gadget, return_gadget,gadget_form, access_control_form, access_log_form, user_form,list_gadgets, update_gadget, delete_gadget
+from .views import manage_gadgets, issue_gadget, return_gadget,gadget_form, access_control_form, access_log_form, user_form,list_gadgets, update_gadget, delete_gadget,CustomLoginView, admin_dashboard
 
 urlpatterns = [
-    path("", home, name="home"),
+    #path("", home, name="home"),
     path('manage_gadgets/', manage_gadgets, name='manage_gadgets'),
     path('issue_gadget/', issue_gadget, name='issue_gadget'),
     path('return_gadget/', return_gadget, name='return_gadget'),
@@ -19,6 +19,12 @@ urlpatterns = [
     path('list_gadgets/', list_gadgets, name='list_gadgets'),
     path('update_gadget/<int:gadget_id>/', update_gadget, name='update_gadget'),
     path('delete_gadget/<int:gadget_id>/', delete_gadget, name='delete_gadget'),
+     path('', CustomLoginView.as_view(), name='login'),
+    path('admin_dashboard/', admin_dashboard, name='admin_dashboard'),
+    path('password_reset/', PasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     # Add other URLs as needed
 ]
 

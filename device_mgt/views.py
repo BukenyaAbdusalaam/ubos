@@ -3,7 +3,10 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from .forms import IssueGadgetForm, ReturnGadgetForm
 from .models import Gadget, AccessControl, AccessLog, User
 from django.utils import timezone
-from .forms import GadgetForm, AccessControlForm, AccessLogForm, UserForm
+from .forms import GadgetForm, AccessControlForm, AccessLogForm, UserForm,CustomAuthenticationForm
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 # Create your views here.
 def home(request):
@@ -144,3 +147,23 @@ def delete_gadget(request, gadget_id):
         return redirect('list_gadgets')
 
     return render(request, 'delete_gadget.html', {'gadget': gadget})
+
+def admin_dashboard(request):
+    # Add logic or data retrieval as needed
+    return render(request, 'admin_dashboard.html')
+
+class CustomLoginView(LoginView):
+    form_class = CustomAuthenticationForm
+    template_name = 'login.html'
+
+def register_user(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')  # Log in the user
+            return redirect('admin_dashboard')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'register_user.html', {'form': form})

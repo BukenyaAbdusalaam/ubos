@@ -1,6 +1,6 @@
 from django import forms
 from .models import Gadget, AccessControl, AccessLog, User
-
+from django.contrib.auth.forms import AuthenticationForm
 class IssueGadgetForm(forms.Form):
     gadget_type = forms.ChoiceField(label='Gadget Type', choices=[])  # Choices will be populated dynamically
     serial_number = forms.CharField(label='Serial Number', max_length=100)
@@ -30,3 +30,7 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = '__all__'
+
+class CustomAuthenticationForm(AuthenticationForm):
+    # Customize the form if needed
+    pass

@@ -6,6 +6,11 @@
     <title>{% block title %}My Django App{% endblock %}</title>
   </head>
   <body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'admin_dashboard' %}">Admin Dashboard</a></li>
+            <!-- Add other navigation links as needed -->
+        </ul>
     <div>{% block content %}{% endblock %}</div>
   </body>
 </html>
