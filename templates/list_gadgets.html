@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% block title %}List Gadgets{% endblock %} {% block
+content %}
+<h2>List Gadgets</h2>
+<ul>
+  {% for gadget in gadgets %}
+  <li>{{ gadget.gadget_type }} - {{ gadget.serial_number }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

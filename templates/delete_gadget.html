@@ -1,0 +1,14 @@
+<!-- device_mgt/templates/delete_gadget.html -->
+
+{% extends 'base.html' %} {% block title %}Delete Gadget{% endblock %} {% block
+content %}
+<h2>Delete Gadget</h2>
+<p>
+  Are you sure you want to delete the gadget with serial number "{{
+  gadget.serial_number }}"?
+</p>
+<form method="post" action="">
+  {% csrf_token %}
+  <button type="submit">Delete</button>
+</form>
+{% endblock %}

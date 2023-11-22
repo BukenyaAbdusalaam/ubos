@@ -57,12 +57,12 @@ class User(AbstractUser):
             # Add more custom permissions as needed
         ]
 
-
-User._meta.get_field(
+ 
+    User._meta.get_field(
     'groups').remote_field.related_name = 'device_mgt_user_groups'
-User._meta.get_field(
+    User._meta.get_field(
     'user_permissions').remote_field.related_name = 'device_mgt_user_user_permissions'
 
 
-def __str__(self):
-    return self.username
+    def __str__(self):
+        return self.username

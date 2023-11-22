@@ -1,0 +1,52 @@
+<!-- device_mgt/templates/manage_gadgets.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gadget Management</title>
+  </head>
+  <body>
+    <h1>Gadget Management Dashboard</h1>
+
+    <!-- Issuance Form -->
+    <h2>Issue Gadget</h2>
+    <form method="post" action="{% url 'issue_gadget' %}">
+      {% csrf_token %} {{ issue_form.as_p }}
+      <button type="submit">Issue Gadget</button>
+    </form>
+
+    <!-- Return Form -->
+    <h2>Return Gadget</h2>
+    <form method="post" action="{% url 'return_gadget' %}">
+      {% csrf_token %} {{ return_form.as_p }}
+      <button type="submit">Return Gadget</button>
+    </form>
+
+    <!-- Gadget Status -->
+    <h2>Gadget Status</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Gadget Type</th>
+          <th>Serial Number</th>
+          <th>Issued To</th>
+          <th>Issued Date</th>
+          <th>Return Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for gadget in gadgets %}
+        <tr>
+          <td>{{ gadget.gadget_type }}</td>
+          <td>{{ gadget.serial_number }}</td>
+          <td>{{ gadget.issued_to.username }}</td>
+          <td>{{ gadget.issued_date }}</td>
+          <td>{{ gadget.return_date }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
