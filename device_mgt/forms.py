@@ -36,9 +36,18 @@ class AccessLogForm(forms.ModelForm):
         fields = '__all__'
 
 class UserForm(forms.ModelForm):
+    username = forms.CharField(max_length=50, required=True)
+    email = forms.EmailField(max_length=254, required=True)
+    first_name = forms.CharField(max_length=50, required=True)
+    last_name = forms.CharField(max_length=50, required=True)
+    phone_number = forms.CharField(max_length=20, required=True)
+    role = forms.ChoiceField(choices=[('regular_user', 'Regular User'), ('admin', 'Admin')], required=True)
+
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['username', 'email', 'first_name', 'last_name', 'phone_number', 'role']
+
+
 
 class CustomAuthenticationForm(AuthenticationForm):
     remember_me = forms.BooleanField(required=False, initial=True)

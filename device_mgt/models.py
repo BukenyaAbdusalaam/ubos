@@ -42,27 +42,14 @@ class AccessLog(models.Model):
         return f"{self.user.username} - {self.login_time}"
 
 
-class User(AbstractUser):
-    ROLES = [
-        ('Admin', 'Admin'),
-        ('Regular User', 'Regular User'),
-    ]
-
-    role = models.CharField(max_length=50, choices=ROLES)
-
-    class Meta:
-        # Add related_name to the groups and user_permissions fields
-        permissions = [
-            ('can_manage_gadgets', 'Can manage gadgets'),
-            # Add more custom permissions as needed
-        ]
-
- 
-    User._meta.get_field(
-    'groups').remote_field.related_name = 'device_mgt_user_groups'
-    User._meta.get_field(
-    'user_permissions').remote_field.related_name = 'device_mgt_user_user_permissions'
-
+class User(models.Model):
+    username = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(max_length=254, unique=False)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=20,default='')
+    role = models.CharField(max_length=20, choices=[('regular_user', 'Regular User'), ('admin', 'Admin')], default='regular_user')
+    date_joined = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.username
+        return f"{self.first_name} {self.last_name}"

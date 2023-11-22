@@ -81,7 +81,7 @@ def return_gadget(request):
 
 from django.shortcuts import render, redirect
 
-@user_passes_test(is_admin, login_url='/login/')
+#@user_passes_test(is_admin, login_url='/')
 
 def gadget_form(request):
     if request.method == 'POST':
@@ -123,8 +123,11 @@ def user_form(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('user_form')
+             if User.objects.filter(email=email).exists():
+                raise ValueError("Email address already exists.")
+        form.save()
+
+        return redirect('user_form')
     else:
         form = UserForm()
 
