@@ -41,6 +41,7 @@ class UserForm(forms.ModelForm):
     first_name = forms.CharField(max_length=50, required=True)
     last_name = forms.CharField(max_length=50, required=True)
     phone_number = forms.CharField(max_length=20, required=True)
+    password = forms.CharField(max_length=128,required=True)
     role = forms.ChoiceField(choices=[('regular_user', 'Regular User'), ('admin', 'Admin')], required=True)
 
     class Meta:

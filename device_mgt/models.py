@@ -48,6 +48,7 @@ class User(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=20,default='')
+    password = models.CharField(max_length=128,default='')
     role = models.CharField(max_length=20, choices=[('regular_user', 'Regular User'), ('admin', 'Admin')], default='regular_user')
     date_joined = models.DateTimeField(auto_now_add=True)
 

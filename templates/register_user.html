@@ -1,63 +1,116 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
 <title>Sign Up | ToDO</title>
+
 <div class="row">
-  <div class="mx-auto" style="width: 400px">
-    <div class="row">
-      <div class="col-sm-12 text-center">
-        <img
-          src="{% static 'images/logo.png' %}"
-          alt="logo"
-          class="img-fluid mx-auto w-25"
-        />
-      </div>
+    <div class="mx-auto" style="width: 400px">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <img
+                    src="{% static 'images/logo.png' %}"
+                    alt="logo"
+                    class="img-fluid mx-auto w-25"
+                />
+            </div>
+        </div>
+
+        <h1 class="text-center">Sign Up</h1>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-floating mb-4">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    name="username"
+                    placeholder="Username"
+                    required
+                />
+                <label for="floatingInput">Username (Required)</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input
+                    type="email"
+                    class="form-control"
+                    id="floatingInput"
+                    name="email_address"
+                    placeholder="Email Address"
+                    required
+                />
+                <label for="floatingInput">Email Address (Required)</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    name="first_name"
+                    placeholder="First Name"
+                    required
+                />
+                <label for="floatingInput">First Name (Required)</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    name="last_name"
+                    placeholder="Last Name"
+                    required
+                />
+                <label for="floatingInput">Last Name (Required)</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input
+                    type="tel"
+                    class="form-control"
+                    id="floatingInput"
+                    name="phone_number"
+                    placeholder="Phone Number"
+                    required
+                />
+                <label for="floatingInput">Phone Number (Required)</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <select class="form-select" id="floatingSelect" name="role" required>
+                    <option value="regular_user" selected>Regular User</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <label for="floatingSelect">Role (Required)</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                />
+                <label for="password">Password (Required)</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block w-100 mb-4">
+                Submit
+            </button>
+
+            <div class="text-center">
+                <p>Already a member? <a href="{% url 'login' %}">Login</a></p>
+            </div>
+        </form>
     </div>
-    <h1 class="text-center">Sign Up</h1>
-
-    <form method="post">
-      {% csrf_token %}
-      <!-- Email input -->
-      <div class="form-floating mb-4">
-        <input
-          type="text"
-          class="form-control"
-          id="floatingInput"
-          name="username"
-          placeholder="name@example.com"
-        />
-        <label for="floatingInput">Username</label>
-      </div>
-      <div class="form-floating mb-4">
-        <input
-          type="email"
-          class="form-control"
-          id="floatingInput"
-          name="email_address"
-          placeholder="name@example.com"
-        />
-        <label for="floatingInput">Email</label>
-      </div>
-      <div class="form-floating mb-4">
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          name="password"
-          placeholder="Password"
-        />
-        <label for="password">Password</label>
-      </div>
-
-      <!-- Submit button -->
-      <button type="submit" class="btn btn-primary btn-block w-100 mb-4">
-        Submit
-      </button>
-
-      <!-- Register buttons -->
-      <div class="text-center">
-        <p>Already a member? <a href="{% url 'login' %}">Login</a></p>
-      </div>
-    </form>
-  </div>
 </div>
 
 {% endblock content %}
+

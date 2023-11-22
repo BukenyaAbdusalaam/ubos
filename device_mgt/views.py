@@ -123,10 +123,7 @@ def user_form(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-             if User.objects.filter(email=email).exists():
-                raise ValueError("Email address already exists.")
-        form.save()
-
+            form.save()
         return redirect('user_form')
     else:
         form = UserForm()
@@ -200,25 +197,59 @@ def signin(request):
 
 def signup(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        email = request.POST['email_address']
-        password = request.POST['password']
+        form = UserForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            phone_number = form.cleaned_data['phone_number']
+            role = form.cleaned_data['role']
 
-        myUser = User.objects.create_user(
-            username, email, password)
+            # Hash the password before storing it in the database
+            from django.contrib.auth.hashers import make_password
+            hashed_password = make_password(password)
 
-        myUser.is_active = True
+            # Create a new user object
+            myUser = User.objects.create_user(
+                username=username,
+                email=email,
+                password=hashed_password,
+                first_name=first_name,
+                last_name=last_name,
+                phone_number=phone_number,
+                role=role
+            )
 
-        myUser.save()
+            # Set the user's status as inactive for now (pending email verification)
+            myUser.is_active = False
+            myUser.save()
 
-        messages.success(request, "Personal account created Successfully...!")
+            # Send an activation email to the user
+            from django.core.mail import send_mail
+            subject = 'Activate Your Account'
+            message = f'Hello {username},\n\nPlease click on the following link to activate your account:\n{get_activation_url(myUser)}'
+            send_mail(
+                subject,
+                message,
+                'noreply@example.com',
+                [email],
+                fail_silently=False
+            )
 
-        return redirect("login")
+            # Display a success message and redirect to the login page
+            messages.success(request, "Registration successful! Please check your email to activate your account.")
+            return redirect('login')
+
+    else:
+        form = UserForm()
 
     context = {
-        messages: 'messages'
+        'form': form
     }
-    return render(request, 'register_user.html')
+    return render(request, 'register_user.html', context)
+
 
 
 class CustomPasswordResetView(PasswordResetView):
