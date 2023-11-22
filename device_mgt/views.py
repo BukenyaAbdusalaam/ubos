@@ -6,7 +6,7 @@ from django.utils import timezone
 from .forms import GadgetForm, AccessControlForm, AccessLogForm, UserForm,CustomAuthenticationForm,CustomUserCreationForm
 from django.contrib.auth.views import LoginView,PasswordResetView,PasswordResetDoneView,PasswordResetConfirmView,PasswordResetCompleteView
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import login,authenticate, logout
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
@@ -168,7 +168,11 @@ def signin(request):
         if this_user is not None:
             login(request, this_user)
             messages.success(request, 'Logged In')
-            return redirect('home')
+            if this_user.is_superuser:
+                return redirect('admin_dashboard')
+            else:
+                return redirect('home')
+
 
         else:
             messages.error(request, 'Invalid Credentials')

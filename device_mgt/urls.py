@@ -5,7 +5,7 @@ from .views import manage_gadgets, issue_gadget, return_gadget,gadget_form, acce
 
 urlpatterns = [
     path("home", home, name="home"),
-    path('accounts/manage_gadgets/', manage_gadgets, name='manage_gadgets'),
+    path('manage_gadgets/', manage_gadgets, name='manage_gadgets'),
     path('issue_gadget/', issue_gadget, name='issue_gadget'),
     path('return_gadget/', return_gadget, name='return_gadget'),
      path('gadget_form/', gadget_form, name='gadget_form'),
@@ -27,7 +27,7 @@ urlpatterns = [
     path('reset/done/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('register/', signup, name='register_user'),  # Add this line
     path('user_dashboard/', user_dashboard, name='user_dashboard'),
-    path('logout/', signout, name='logout'),
+    path('logout/', signout, name='logout')
 
     # Add other URLs as needed
 ]
