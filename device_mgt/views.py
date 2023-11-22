@@ -4,7 +4,7 @@ from .forms import IssueGadgetForm, ReturnGadgetForm
 from .models import Gadget, AccessControl, AccessLog, User
 from django.utils import timezone
 from .forms import GadgetForm, AccessControlForm, AccessLogForm, UserForm,CustomAuthenticationForm
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView,PasswordResetView,PasswordResetDoneView,PasswordResetConfirmView,PasswordResetCompleteView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
@@ -167,3 +167,20 @@ def register_user(request):
         form = UserCreationForm()
 
     return render(request, 'register_user.html', {'form': form})
+
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'password_reset.html'
+    success_url = 'password_reset_done'
+    email_template_name = 'password_reset_email.html'
+    form_class = CustomAuthenticationForm
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'password_reset_done.html'
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'password_reset_confirm.html'
+    success_url = 'password_reset_complete'
+    form_class = CustomAuthenticationForm
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'password_reset_complete.html'

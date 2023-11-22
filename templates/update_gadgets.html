@@ -1,5 +1,4 @@
-{% extends 'base.html' %} {% block title %}Update Gadget{% endblock %} {% block
-content %}
+{% extends 'base.html' %} {% block title %}Update Gadget{% endblock %} {% block content %}
 <h2>Update Gadget</h2>
 <form method="post" action="">
   {% csrf_token %} {{ form.as_p }}
