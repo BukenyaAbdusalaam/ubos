@@ -168,7 +168,7 @@ def signin(request):
         if this_user is not None:
             login(request, this_user)
             messages.success(request, 'Logged In')
-            return redirect('index.html')
+            return redirect('home')
 
         else:
             messages.error(request, 'Invalid Credentials')
@@ -179,7 +179,7 @@ def signin(request):
         if next_url:
             return next_url
         else:
-            return 'index.html'
+            return '/'
 
     return render(request, 'login.html')
 
@@ -228,3 +228,10 @@ def signout(request):
     logout(request)
     messages.info(request, 'Logged Out..!')
     return redirect('login')
+
+@login_required
+def user_dashboard(request):
+    # Fetch information related to the user, such as issued gadgets
+    user_gadgets = Gadget.objects.filter(issued_to=request.user)
+
+    return render(request, 'user_dashboard.html', {'user_gadgets': user_gadgets})

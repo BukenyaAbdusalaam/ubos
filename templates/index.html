@@ -1,3 +1,25 @@
 <h1>Hello World
 
 </h1>
+<!-- device_mgt/templates/user_dashboard.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+    <h2>Welcome, {{ user.username }}!</h2>
+
+    {% if user_gadgets %}
+        <h3>Your Issued Gadgets:</h3>
+        <ul>
+            {% for gadget in user_gadgets %}
+                <li>{{ gadget.gadget_type }} - {{ gadget.serial_number }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No gadgets issued to you.</p>
+    {% endif %}
+
+    <p><a href="{% url 'logout' %}">Logout</a></p>
+{% endblock %}
