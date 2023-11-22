@@ -18,14 +18,21 @@ def is_admin(user):
     return user.is_authenticated and user.is_staff
 
 
-#@login_required
+@login_required
 def manage_gadgets(request):
-    gadget_types = [choice[0] for choice in Gadget.GADGET_TYPES]
     gadgets = Gadget.objects.all()
-    issue_form = IssueGadgetForm(choices={'gadget_type': gadget_types})
+
+    gadget_type_choices = Gadget.GADGET_TYPES
+
+    issue_form = IssueGadgetForm(initial={'gadget_type': gadget_type_choices[0][0]})
+    issue_form.fields['gadget_type'].choices = gadget_type_choices
+
     return_form = ReturnGadgetForm()
 
+    return render(request, 'manage_gadgets.html', {'gadgets': gadgets, 'issue_form': issue_form, 'return_form': return_form})
+
     return render(request, 'manage_gadgets.html', {'gadget_types': gadget_types, 'gadgets': gadgets, 'issue_form': issue_form, 'return_form': return_form})
+
 
 @user_passes_test(is_admin, login_url='/login/')
 @login_required

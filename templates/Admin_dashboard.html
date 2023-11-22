@@ -3,4 +3,9 @@
 {% extends 'base.html' %} {% block title %}Admin Dashboard{% endblock %} {% block content %}
 <h2>Welcome to the Admin Dashboard</h2>
 <!-- Add your custom content here -->
+        <ul>
+            <li><a href="{% url 'manage_gadgets' %}">manage_gadgets</a></li>
+            <!-- Add other navigation links as needed -->
+        </ul>
+
 {% endblock %}

@@ -1,9 +1,18 @@
 from django import forms
 from .models import Gadget, AccessControl, AccessLog, User
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
-class IssueGadgetForm(forms.Form):
-    gadget_type = forms.ChoiceField(label='Gadget Type', choices=[])  # Choices will be populated dynamically
+# class IssueGadgetForm(forms.Form):
+#     gadget_type = forms.ChoiceField(label='Gadget Type', choices=[])  # Choices will be populated dynamically
+#     serial_number = forms.CharField(label='Serial Number', max_length=100)
+
+class IssueGadgetForm(forms.ModelForm):
+    gadget_type = forms.ChoiceField(choices=Gadget.GADGET_TYPES, required=True)
     serial_number = forms.CharField(label='Serial Number', max_length=100)
+
+    class Meta:
+        model = Gadget
+        fields = ['gadget_type', 'serial_number']
+
 
 class ReturnGadgetForm(forms.Form):
     serial_number = forms.CharField(label='Serial Number', max_length=100)
