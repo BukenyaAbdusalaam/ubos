@@ -1,7 +1,63 @@
-{% extends 'base.html' %} {% block title %}Register{% endblock %} {% block content %}
-<h2>Register</h2>
-<form method="post" action="{% url 'register_user' %}">
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit">Register</button>
-</form>
-{% endblock %}
+{% extends 'base.html' %} {% load static %} {% block content %}
+<title>Sign Up | ToDO</title>
+<div class="row">
+  <div class="mx-auto" style="width: 400px">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <img
+          src="{% static 'images/logo.png' %}"
+          alt="logo"
+          class="img-fluid mx-auto w-25"
+        />
+      </div>
+    </div>
+    <h1 class="text-center">Sign Up</h1>
+
+    <form method="post">
+      {% csrf_token %}
+      <!-- Email input -->
+      <div class="form-floating mb-4">
+        <input
+          type="text"
+          class="form-control"
+          id="floatingInput"
+          name="username"
+          placeholder="name@example.com"
+        />
+        <label for="floatingInput">Username</label>
+      </div>
+      <div class="form-floating mb-4">
+        <input
+          type="email"
+          class="form-control"
+          id="floatingInput"
+          name="email_address"
+          placeholder="name@example.com"
+        />
+        <label for="floatingInput">Email</label>
+      </div>
+      <div class="form-floating mb-4">
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          placeholder="Password"
+        />
+        <label for="password">Password</label>
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary btn-block w-100 mb-4">
+        Submit
+      </button>
+
+      <!-- Register buttons -->
+      <div class="text-center">
+        <p>Already a member? <a href="{% url 'login' %}">Login</a></p>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}

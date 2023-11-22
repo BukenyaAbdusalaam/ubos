@@ -3,10 +3,12 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from .forms import IssueGadgetForm, ReturnGadgetForm
 from .models import Gadget, AccessControl, AccessLog, User
 from django.utils import timezone
-from .forms import GadgetForm, AccessControlForm, AccessLogForm, UserForm,CustomAuthenticationForm
+from .forms import GadgetForm, AccessControlForm, AccessLogForm, UserForm,CustomAuthenticationForm,CustomUserCreationForm
 from django.contrib.auth.views import LoginView,PasswordResetView,PasswordResetDoneView,PasswordResetConfirmView,PasswordResetCompleteView
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+from django.contrib.auth import login,authenticate
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
@@ -16,7 +18,7 @@ def is_admin(user):
     return user.is_authenticated and user.is_staff
 
 
-@login_required
+#@login_required
 def manage_gadgets(request):
     gadget_types = [choice[0] for choice in Gadget.GADGET_TYPES]
     gadgets = Gadget.objects.all()
@@ -152,21 +154,57 @@ def admin_dashboard(request):
     # Add logic or data retrieval as needed
     return render(request, 'admin_dashboard.html')
 
-class CustomLoginView(LoginView):
-    form_class = CustomAuthenticationForm
-    template_name = 'login.html'
+# class CustomLoginView(LoginView):
+#     form_class = CustomAuthenticationForm
+#     template_name = 'login.html'
 
-def register_user(request):
+def signin(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')  # Log in the user
-            return redirect('admin_dashboard')
-    else:
-        form = UserCreationForm()
+        username = request.POST['username']
+        password = request.POST['password']
 
-    return render(request, 'register_user.html', {'form': form})
+        this_user = authenticate(username=username, password=password)
+
+        if this_user is not None:
+            login(request, this_user)
+            messages.success(request, 'Logged In')
+            return redirect('index.html')
+
+        else:
+            messages.error(request, 'Invalid Credentials')
+            return redirect('login')
+
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if next_url:
+            return next_url
+        else:
+            return 'index.html'
+
+    return render(request, 'login.html')
+
+
+def signup(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email_address']
+        password = request.POST['password']
+
+        myUser = User.objects.create_user(
+            username, email, password)
+
+        myUser.is_active = True
+
+        myUser.save()
+
+        messages.success(request, "Personal account created Successfully...!")
+
+        return redirect("login")
+
+    context = {
+        messages: 'messages'
+    }
+    return render(request, 'register_user.html')
 
 
 class CustomPasswordResetView(PasswordResetView):
@@ -184,3 +222,9 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     form_class = CustomAuthenticationForm
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'password_reset_complete.html'
+
+@login_required(login_url='login')
+def signout(request):
+    logout(request)
+    messages.info(request, 'Logged Out..!')
+    return redirect('login')
