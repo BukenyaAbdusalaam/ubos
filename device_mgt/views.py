@@ -166,22 +166,50 @@ def admin_dashboard(request):
 #     form_class = CustomAuthenticationForm
 #     template_name = 'login.html'
 
+# def signin(request):
+#     if request.method == 'POST':
+#         username = request.POST['username']
+#         password = request.POST['password']
+
+#         this_user = authenticate(username=username, password=password)
+
+#         if this_user is not None:
+#             login(request, this_user)
+#             messages.success(request, 'Logged In')
+#             if this_user.is_superuser:
+#                 return redirect('admin_dashboard')
+#             else:
+#                 return redirect('home')
+
+
+#         else:
+#             messages.error(request, 'Invalid Credentials')
+#             return redirect('login')
+
+#     def get_success_url(self):
+#         next_url = self.request.GET.get('next')
+#         if next_url:
+#             return next_url
+#         else:
+#             return '/'
+
+#     return render(request, 'login.html')
+
 def signin(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
 
-        this_user = authenticate(username=username, password=password)
+        user = CustomUserBackend.authenticate(request, username=username, password=password)
 
-        if this_user is not None:
-            login(request, this_user)
+        if user is not None:
+            login(request, user)
             messages.success(request, 'Logged In')
-            if this_user.is_superuser:
+            if user.is_superuser:
                 return redirect('admin_dashboard')
             else:
                 return redirect('home')
-
-
+            
         else:
             messages.error(request, 'Invalid Credentials')
             return redirect('login')
@@ -288,3 +316,15 @@ def reset_session_timeout(request):
     # Reset the session timeout
     request.session.modified = True
     return JsonResponse({'message': 'Session timeout reset successfully.'})
+
+
+#@login_required
+def issued_gadgets(request):
+    if request.user.is_admin:
+        gadgets = Gadget.objects.all()  # Retrieve all issued gadgets
+    else:
+        gadgets = Gadget.objects.filter(issued_to=request.user)  # Retrieve only gadgets issued to the current user
+
+    return render(request, 'issued_gadgets.html', {'gadgets': gadgets})
+
+
