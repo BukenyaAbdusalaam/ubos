@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login,authenticate, logout
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.http import JsonResponse
 
 # Create your views here.
 def home(request):
@@ -280,3 +281,10 @@ def user_dashboard(request):
     user_gadgets = Gadget.objects.filter(issued_to=request.user)
 
     return render(request, 'user_dashboard.html', {'user_gadgets': user_gadgets})
+
+
+
+def reset_session_timeout(request):
+    # Reset the session timeout
+    request.session.modified = True
+    return JsonResponse({'message': 'Session timeout reset successfully.'})
