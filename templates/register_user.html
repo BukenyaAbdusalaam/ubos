@@ -2,19 +2,12 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'register.css' %}" />
 <title>Sign Up | ToDO</title>
 
 <div class="row">
     <div class="mx-auto" style="width: 400px">
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <img
-                    src="{% static 'images/logo.png' %}"
-                    alt="logo"
-                    class="img-fluid mx-auto w-25"
-                />
-            </div>
-        </div>
+       
 
         <h1 class="text-center">Sign Up</h1>
 
@@ -22,6 +15,7 @@
             {% csrf_token %}
 
             <div class="form-floating mb-4">
+                    <label for="floatingInput">Username <span class="required-star">*</span></label>
                 <input
                     type="text"
                     class="form-control"
@@ -30,10 +24,11 @@
                     placeholder="Username"
                     required
                 />
-                <label for="floatingInput">Username (Required)</label>
+        
             </div>
 
             <div class="form-floating mb-4">
+            <label for="floatingInput">Email Address <span class="required-star">*</span></label>
                 <input
                     type="email"
                     class="form-control"
@@ -42,10 +37,11 @@
                     placeholder="Email Address"
                     required
                 />
-                <label for="floatingInput">Email Address (Required)</label>
+                
             </div>
 
             <div class="form-floating mb-4">
+             <label for="floatingInput">First Name <span class="required-star">*</span></label>
                 <input
                     type="text"
                     class="form-control"
@@ -54,10 +50,11 @@
                     placeholder="First Name"
                     required
                 />
-                <label for="floatingInput">First Name (Required)</label>
+               
             </div>
 
             <div class="form-floating mb-4">
+             <label for="floatingInput">Last Name <span class="required-star">*</span></label>
                 <input
                     type="text"
                     class="form-control"
@@ -66,10 +63,11 @@
                     placeholder="Last Name"
                     required
                 />
-                <label for="floatingInput">Last Name (Required)</label>
+               
             </div>
 
             <div class="form-floating mb-4">
+            <label for="floatingInput">Phone Number <span class="required-star">*</span></label>
                 <input
                     type="tel"
                     class="form-control"
@@ -78,7 +76,7 @@
                     placeholder="Phone Number"
                     required
                 />
-                <label for="floatingInput">Phone Number (Required)</label>
+                
             </div>
 
             <div class="form-floating mb-4">
@@ -86,7 +84,7 @@
                     <option value="regular_user" selected>Regular User</option>
                     <option value="admin">Admin</option>
                 </select>
-                <label for="floatingSelect">Role (Required)</label>
+                <label for="floatingSelect">Role<span class="required-star">*</span></label>
             </div>
 
             <div class="form-floating mb-4">

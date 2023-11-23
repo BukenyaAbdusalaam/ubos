@@ -1,4 +1,5 @@
 <!-- device_mgt/templates/manage_gadgets.html -->
+ {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,20 +7,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gadget Management</title>
+    <link rel="stylesheet" href="{% static 'gadgets.css' %}" />
   </head>
   <body>
     <h1>Gadget Management Dashboard</h1>
 
     <!-- Issuance Form -->
-    <h2>Issue Gadget</h2>
+  
     <form method="post" action="{% url 'issue_gadget' %}">
+      <h2>Issue Gadget</h2>
       {% csrf_token %} {{ issue_form.as_p }}
       <button type="submit">Issue Gadget</button>
     </form>
 
     <!-- Return Form -->
-    <h2>Return Gadget</h2>
     <form method="post" action="{% url 'return_gadget' %}">
+    <h2>Return Gadget</h2>
+
       {% csrf_token %} {{ return_form.as_p }}
       <button type="submit">Return Gadget</button>
     </form>
