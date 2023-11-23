@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}   {% load static %}  {% block content %}
+<link rel="stylesheet" href="{% static 'login.css' %}" />
 <title>Sign In | ToDO</title>
 <div class="row">
   <div class="mx-auto" style="width: 400px">
@@ -11,12 +12,13 @@
         />
       </div>
     </div>
-    <h1 class="text-center">Sign in</h1>
+    <h1 class="login_title">Sign in</h1>
 
-    <form method="post">
+    <form method="post"  class="login_wrapper">
       {% csrf_token %}
       <!-- Email input -->
-      <div class="form-floating mb-4">
+      <div class="form_login">
+       <label for="floatingInput">Username</label>
         <input
           type="text"
           class="form-control"
@@ -24,9 +26,10 @@
           name="username"
           placeholder="name@example"
         />
-        <label for="floatingInput">Username</label>
+        
       </div>
-      <div class="form-floating mb-4">
+      <div class="form_login">
+       <label for="password">Password</label>
         <input
           type="password"
           class="form-control"
@@ -34,19 +37,22 @@
           name="password"
           placeholder="Password"
         />
-        <label for="password">Password</label>
+       
       </div>
       <!--Show Password-->
-      <div class="text-center">
+      <div class="show_password">
+      <div>
         <input type="checkbox" id="show-password" />
-        <label class="mb-3" for="show-password">Show password</label>
+        <label  for="show-password">Show password</label>
+      </div>
         <br />
       </div>
       <!-- 2 column grid layout for inline styling -->
-      <div class="row mb-4">
-        <div class="col d-flex justify-content-center">
-          <!-- Checkbox -->
-          <div class="form-check">
+      
+        
+
+        <div class="col_1">
+         <div class="form-check">
             <input
               class="form-check-input"
               type="checkbox"
@@ -58,22 +64,19 @@
               Remember me
             </label>
           </div>
-        </div>
-
-        <div class="col">
           <!-- Simple link -->
-          <a href="{% url 'password_reset' %}">Forgot password?</a>
+         <div> <a href="{% url 'password_reset' %}">Forgot password?</a></div>
         </div>
-      </div>
+      
 
       <!-- Submit button -->
-      <button type="submit" class="btn btn-primary btn-block w-100 mb-4">
+      <button type="submit" class="btn_login">
         Sign in
       </button>
 
       <!-- Register buttons -->
       <div class="text-center">
-        <p>Not a member? <a href="{% url 'register_user' %}">Register</a></p>
+        <p>Not a member? <a href="{% url 'register_user' %}" class="register">Register</a></p>
       </div>
     </form>
   </div>
