@@ -7,7 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 
 class IssueGadgetForm(forms.ModelForm):
     gadget_type = forms.ChoiceField(choices=Gadget.GADGET_TYPES, required=True)
-    serial_number = forms.CharField(label='Serial Number', max_length=100)
+    serial_number = forms.CharField(label='Serial Number', max_length=100,widget=forms.TextInput(attrs={'class': 'serial-input'}))
 
     class Meta:
         model = Gadget
@@ -15,7 +15,7 @@ class IssueGadgetForm(forms.ModelForm):
 
 
 class ReturnGadgetForm(forms.Form):
-    serial_number = forms.CharField(label='Serial Number', max_length=100)
+    serial_number = forms.CharField(label='Serial Number', max_length=100,widget=forms.TextInput(attrs={'class': 'serial-input'}))
 
 
 

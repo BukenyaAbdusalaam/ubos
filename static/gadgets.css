@@ -1,0 +1,96 @@
+body{
+    width: 100%;
+    height: auto;
+    display: flex;
+    margin: 0;
+    justify-content: center;
+    flex-direction: column;
+}
+table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    h1{
+        text-align: center;
+        font-size:2.8rem;
+  line-height:1.25;
+  font-weight:600;
+  color:rgba(0,0,0,0.9);
+  padding:0 0 4px 0
+    }
+    form{
+          display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-content: space-between;
+    width: 400px;
+  -webkit-box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 24px;
+  border-radius: 8px;
+  margin: 12px auto;
+  background: var(--color-background-container, #fff);
+    }
+    .serial-input {
+    padding: 10px;
+    width: 300px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+button{
+   
+    
+      background-color:#0073b1;
+  border:0;
+  border-radius:2px;
+  -webkit-box-sizing:border-box;
+  box-sizing:border-box;
+  color:#fff;
+  cursor:pointer;
+  display:inline-block;
+  font-size:1rem;
+  font-weight:600;
+  font-family:inherit;
+  height:30px;
+  line-height:30px;
+  overflow:hidden;
+  outline-width:2px;
+  padding:0 24px;
+  
+  text-align:center;
+  text-decoration:none;
+  -webkit-transition-duration:167ms;
+  transition-duration:167ms;
+  -webkit-transition-property:background-color,color,-webkit-box-shadow;
+  transition-property:background-color,color,-webkit-box-shadow;
+  transition-property:background-color,box-shadow,color;
+  transition-property:background-color,box-shadow,color,-webkit-box-shadow;
+  -webkit-transition-timing-function:cubic-bezier(0, 0, 0.2, 1);
+  transition-timing-function:cubic-bezier(0, 0, 0.2, 1);
+  vertical-align:middle;
+  z-index:0;
+  background:var(--color-action, #0a66c2) !important;
+  border-radius:28px !important
+    }
