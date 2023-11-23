@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Issued Gadgets</h1>
+
+{% if gadgets %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Serial Number</th>
+            <th>Gadget Type</th>
+            <th>Issued Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for gadget in gadgets %}
+        <tr>
+            <td>{{ gadget.serial_number }}</td>
+            <td>{{ gadget.gadget_type }}</td>
+            <td>{{ gadget.issued_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No issued gadgets found.</p>
+{% endif %}
+{% endblock %}

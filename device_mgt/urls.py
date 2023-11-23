@@ -1,7 +1,7 @@
 from .views import home
 from django.urls import path
 
-from .views import manage_gadgets, issue_gadget, return_gadget,gadget_form, access_control_form, access_log_form, user_form,list_gadgets, update_gadget, delete_gadget, admin_dashboard,CustomPasswordResetView,CustomPasswordResetDoneView,CustomPasswordResetConfirmView,CustomPasswordResetCompleteView,signup,signin,user_dashboard,signout,reset_session_timeout
+from .views import manage_gadgets, issue_gadget, return_gadget,gadget_form, access_control_form, access_log_form, user_form,list_gadgets, update_gadget, delete_gadget, admin_dashboard,CustomPasswordResetView,CustomPasswordResetDoneView,CustomPasswordResetConfirmView,CustomPasswordResetCompleteView,signup,signin,user_dashboard,signout,reset_session_timeout,issued_gadgets
 
 urlpatterns = [
     path("home", home, name="home"),
@@ -29,6 +29,7 @@ urlpatterns = [
     path('user_dashboard/', user_dashboard, name='user_dashboard'),
     path('logout/', signout, name='logout'),
     path('reset_session_timeout/', reset_session_timeout, name='reset_session_timeout'),
+    path('issued_gadgets/',issued_gadgets, name= 'issued_gadgets')
 
     # Add other URLs as needed
 ]
