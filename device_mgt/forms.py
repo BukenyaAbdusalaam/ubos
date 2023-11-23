@@ -23,7 +23,7 @@ class ReturnGadgetForm(forms.Form):
 class GadgetForm(forms.ModelForm):
     class Meta:
         model = Gadget
-        fields = '__all__'
+        fields = ['gadget_type','serial_number']
 
 class AccessControlForm(forms.ModelForm):
     class Meta:

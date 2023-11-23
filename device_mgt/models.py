@@ -12,8 +12,8 @@ class Gadget(models.Model):
     gadget_id = models.AutoField(primary_key=True)
     gadget_type = models.CharField(max_length=50, choices=GADGET_TYPES)
     serial_number = models.CharField(max_length=100, unique=True)
-    issued_to = models.ForeignKey(User, on_delete=models.CASCADE)
-    issued_date = models.DateField()
+    #issued_to = models.ForeignKey(User, on_delete=models.CASCADE)
+    issued_date = models.DateField(blank=True)
     return_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
